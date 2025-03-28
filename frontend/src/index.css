@@ -1,0 +1,288 @@
+.syne {
+  font-family: "Syne", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.inter {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.formControlFocus:focus {
+  border-color: #28a745 !important;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
+}
+
+.equal-height {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.pagination .page-item {
+  margin: 0 4px;
+}
+
+.pagination .page-item .page-link {
+  display: inline-block;
+  outline: 0;
+  appearance: none;
+  padding: 0 12px;
+  border: 0 solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: rgb(9, 128, 76);
+  box-shadow: rgb(19 170 82 / 40%) 0px 2px 3px;
+  color: rgb(255, 255, 255);
+  font-size: 15px;
+  font-weight: 400;
+  height: 36px;
+  line-height: 36px;
+  transition: all 150ms ease-in-out;
+}
+
+.pagination .page-item .page-link:hover {
+  background-color: rgb(17, 97, 73);
+  box-shadow: rgb(19 170 82 / 40%) 0px 2px 3px, rgb(195 231 202) 0px 0px 0px 3px;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: rgb(17, 97, 73);
+  box-shadow: rgb(19 170 82 / 60%) 0px 3px 6px;
+  color: rgb(255, 255, 255);
+}
+
+.pagination .page-item.disabled .page-link {
+  background-color: rgb(200, 200, 200);
+  color: rgb(150, 150, 150);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.custom-btn {
+  display: inline-block;
+  outline: 0;
+  appearance: none;
+  padding: 0px 12px;
+  border: 0px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: rgb(9, 128, 76);
+  box-shadow: rgb(19 170 82 / 40%) 0px 2px 3px;
+  color: rgb(255, 255, 255);
+  font-size: 17px;
+  font-weight: 400;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  transition: all 150ms ease-in-out 0s;
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-btn:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(17, 97, 73);
+  box-shadow: rgb(19 170 82 / 40%) 0px 2px 3px, rgb(195 231 202) 0px 0px 0px 3px;
+}
+
+.custom-btn::after {
+  content: ">";
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  font-size: 16px;
+  transition: all 200ms ease-in-out;
+}
+
+.custom-btn:hover::after {
+  right: 10px;
+  opacity: 1;
+}
+
+.custom-btn:hover {
+  padding-right: 28px;
+}
+
+.custom-edit-btn {
+  display: inline-block;
+  outline: 0;
+  appearance: none;
+  padding: 0px 12px;
+  border: 0px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: rgb(9, 128, 76);
+  box-shadow: rgb(19 170 82 / 40%) 0px 2px 3px;
+  color: rgb(255, 255, 255);
+  font-size: 17px;
+  font-weight: 400;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  transition: all 150ms ease-in-out 0s;
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-edit-btn:hover {
+  background-color: rgb(17, 97, 73);
+  box-shadow: rgb(19 170 82 / 40%) 0px 2px 3px, rgb(195 231 202) 0px 0px 0px 3px;
+}
+
+.custom-delete-btn {
+  display: inline-block;
+  outline: 0;
+  appearance: none;
+  padding: 0px 12px;
+  border: 0px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: rgb(220, 53, 69);
+  box-shadow: rgb(220 53 69 / 40%) 0px 2px 3px;
+  color: rgb(255, 255, 255);
+  font-size: 17px;
+  font-weight: 400;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  transition: all 150ms ease-in-out 0s;
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-delete-btn:hover {
+  background-color: rgb(180, 43, 59);
+  box-shadow: rgb(220 53 69 / 40%) 0px 2px 3px, rgb(248 215 218) 0px 0px 0px 3px;
+}
+
+.custom-primary-btn {
+  display: inline-block;
+  outline: 0;
+  appearance: none;
+  padding: 0px 12px;
+  border: 0px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: rgb(0, 123, 255);
+  box-shadow: rgb(0 123 255 / 40%) 0px 2px 3px;
+  color: rgb(255, 255, 255);
+  font-size: 17px;
+  font-weight: 400;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  transition: all 150ms ease-in-out 0s;
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-primary-btn:hover {
+  background-color: rgb(0, 105, 217);
+  box-shadow: rgb(0 123 255 / 40%) 0px 2px 3px, rgb(204 229 255) 0px 0px 0px 3px;
+}
+
+.custom-warning-btn {
+  display: inline-block;
+  outline: 0;
+  appearance: none;
+  padding: 0px 12px;
+  border: 0px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: rgb(255, 193, 7);
+  box-shadow: rgb(255 193 7 / 40%) 0px 2px 3px;
+  color: rgb(255, 255, 255);
+  font-size: 17px;
+  font-weight: 400;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  transition: all 150ms ease-in-out 0s;
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-warning-btn:hover {
+  background-color: rgb(255, 159, 11);
+  box-shadow: rgb(255 193 7 / 40%) 0px 2px 3px, rgb(255 229 166) 0px 0px 0px 3px;
+}
+
+.custom-toggle-btn {
+  display: inline-block;
+  outline: 0;
+  appearance: none;
+  padding: 0px 12px;
+  border: 0px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: rgb(33, 37, 41);
+  box-shadow: rgb(33 37 41 / 40%) 0px 2px 3px;
+  color: rgb(255, 255, 255);
+  font-size: 17px;
+  font-weight: 400;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  transition: all 150ms ease-in-out 0s;
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-toggle-btn:hover {
+  background-color: rgb(23, 27, 31);
+  box-shadow: rgb(33 37 41 / 40%) 0px 2px 3px, rgb(100 100 100) 0px 0px 0px 3px;
+}
+
+.custom-edit-btn i,
+.custom-delete-btn i,
+.custom-toggle-btn i {
+  transition: transform 0.2s ease;
+}
+
+.custom-edit-btn:hover i,
+.custom-delete-btn:hover i,
+.custom-toggle-btn:hover i {
+  transform: scale(1.2);
+}
+
+.accordion-button {
+  --bs-accordion-active-bg: #212529;
+  --bs-accordion-active-color: #ffffff;
+  --bs-accordion-btn-focus-box-shadow: none;
+  --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+#map {
+  height: 500px;
+  width: 100%;
+}
+
+.leaflet-control-container .leaflet-routing-container-hide {
+  display: none;
+}
+
+form .form-control:focus,
+form .form-select:focus {
+  border-color: #093b15;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
