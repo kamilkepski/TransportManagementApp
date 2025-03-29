@@ -31,17 +31,10 @@ public class DriverController {
 
     private final DriverService driverService;
     private final ConfirmationTokenService confirmationTokenService;
-    private final EmailService emailService;
-    private final PropertyReader propertyReader;
 
-    public DriverController(DriverService driverService,
-                            ConfirmationTokenService confirmationTokenService,
-                            EmailService emailService,
-                            PropertyReader propertyReader) {
+    public DriverController(DriverService driverService, ConfirmationTokenService confirmationTokenService) {
         this.driverService = driverService;
         this.confirmationTokenService = confirmationTokenService;
-        this.emailService = emailService;
-        this.propertyReader = propertyReader;
     }
 
     @GetMapping
@@ -115,42 +108,8 @@ public class DriverController {
     }
 
     @PostMapping("/account/set-password")
-    public ResponseEntity<?> setPassword(@RequestBody PasswordRequest passwordRequest) {
-        String token = passwordRequest.getToken();
-        String password = passwordRequest.getPassword();
-
-        ConfirmationToken confirmationToken = confirmationTokenService.findByConfirmationToken(token);
-
-        if (confirmationToken == null || confirmationToken.getExpirationDate().isBefore(LocalDateTime.now())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Token jest niepoprawny lub wygasł.");
-        }
-
-        Driver driver = driverService.findByEmail(confirmationToken.getDriver().getEmail());
-        if (driver.isEnabled()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Konto kierowcy zostało już aktywowane.");
-        }
-
-        if (password == null || password.length() < 8) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Hasło musi zawierać co najmniej 8 znaków.");
-        }
-
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String encodedPassword = encoder.encode(password);
-        driver.setPassword(encodedPassword);
-        driver.setEnabled(true);
-        driverService.createDriver(driver);
-        confirmationTokenService.deleteConfirmationToken(confirmationToken.getTokenid());
-
-        MimeMessagePreparator preparator = message -> {
-            MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED, "UTF-8");
-            helper.setFrom("Panel zarządzania <" + propertyReader.getPropertyValue("app.email") + ">");
-            helper.setTo(driver.getEmail());
-            helper.setSubject("Aktywacja konta kierowcy");
-            helper.setText("Twoje konto kierowcy zostało aktywowane.");
-        };
-
-        emailService.sendEmail2(preparator);
-
-        return ResponseEntity.ok("Hasło zostało ustawione pomyślnie. Konto jest aktywne.");
+    public ResponseEntity<Void> setPassword(@RequestBody PasswordRequest passwordRequest) {
+        driverService.setPassword(passwordRequest);
+        return ResponseEntity.noContent().build();
     }
 }

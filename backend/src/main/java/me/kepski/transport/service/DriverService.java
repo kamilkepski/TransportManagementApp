@@ -1,5 +1,6 @@
 package me.kepski.transport.service;
 
+import me.kepski.transport.dto.PasswordRequest;
 import me.kepski.transport.entity.Driver;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,4 +20,5 @@ public interface DriverService {
     List<Driver> getAllActivatedDrivers();
     String calculateWorkingHours(Long driverId, int month, int year);
     Map<String, String> calculateWeeklyAndBiweeklyWorkingHours(Long driverId, int month, int year);
+    void setPassword(PasswordRequest passwordRequest);
 }

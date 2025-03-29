@@ -1,9 +1,13 @@
 package me.kepski.transport.service.implementation;
 
 import me.kepski.transport.config.PropertyReader;
+import me.kepski.transport.dto.PasswordRequest;
 import me.kepski.transport.entity.ConfirmationToken;
 import me.kepski.transport.entity.Driver;
 import me.kepski.transport.entity.DriverAssignment;
+import me.kepski.transport.exception.BadRequestException;
+import me.kepski.transport.exception.ConflictException;
+import me.kepski.transport.exception.InvalidTokenException;
 import me.kepski.transport.repository.DriverAssignmentRepository;
 import me.kepski.transport.repository.DriverRepository;
 import me.kepski.transport.service.ConfirmationTokenService;
@@ -16,10 +20,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoField;
 import java.util.HashMap;
@@ -196,4 +202,41 @@ public class DriverServiceImpl implements DriverService {
         return result;
     }
 
+    @Override
+    public void setPassword(PasswordRequest passwordRequest) {
+        String token = passwordRequest.getToken();
+        String password = passwordRequest.getPassword();
+
+        ConfirmationToken confirmationToken = confirmationTokenService.findByConfirmationToken(token);
+
+        if (confirmationToken == null || confirmationToken.getExpirationDate().isBefore(LocalDateTime.now())) {
+            throw new InvalidTokenException("Token jest niepoprawny lub wygasł.");
+        }
+
+        Driver driver = findByEmail(confirmationToken.getDriver().getEmail());
+        if (driver.isEnabled()) {
+            throw new ConflictException("Konto kierowcy zostało już aktywowane.");
+        }
+
+        if (password == null || password.length() < 8) {
+            throw new BadRequestException("Hasło musi zawierać co najmniej 8 znaków.");
+        }
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodedPassword = encoder.encode(password);
+        driver.setPassword(encodedPassword);
+        driver.setEnabled(true);
+        createDriver(driver);
+        confirmationTokenService.deleteConfirmationToken(confirmationToken.getTokenid());
+
+        MimeMessagePreparator preparator = message -> {
+            MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED, "UTF-8");
+            helper.setFrom("Panel zarządzania <" + propertyReader.getPropertyValue("app.email") + ">");
+            helper.setTo(driver.getEmail());
+            helper.setSubject("Aktywacja konta kierowcy");
+            helper.setText("Twoje konto kierowcy zostało aktywowane.");
+        };
+
+        emailService.sendEmail2(preparator);
+    }
 }
