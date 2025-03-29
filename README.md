@@ -9,11 +9,15 @@ A comprehensive web application supporting the management of a transport company
 - Fleet registration and management:
   - Monitoring fuel levels and consumption.
 
+![Vehicles Tab Screenshot](screenshots/vehicles.png)
+
 ### Orders
 
 - Order management:
   - Tracking order status (accepted, in progress, completed).
   - Editing transport orders.
+
+![Orders Tab Screenshot](screenshots/orders.png)
 
 ### Routes
 
@@ -22,6 +26,8 @@ A comprehensive web application supporting the management of a transport company
   - Creating preview routes for orders.
 - Route analysis:
   - Trip history and statistics.
+
+![Routes Tab Screenshot](screenshots/routes.png)
 
 ### Drivers
 
