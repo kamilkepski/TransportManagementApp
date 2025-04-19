@@ -8,8 +8,9 @@ public interface EmployeeService {
 
     List<Employee> getAllEmployees();
     Employee getEmployeeById(Long id);
-    Employee createEmployee(Employee employee);
+    Long createEmployee(Employee employee);
     Employee updateEmployee(Long id, Employee employeeDetails);
     void deleteEmployee(Long id);
     Employee findByEmail(String email);
+    boolean isEmployee();
 }

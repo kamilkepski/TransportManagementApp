@@ -1,12 +1,30 @@
+import axios from "../api/axios";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const fetchInit = async () => {
+    try {
+      const response = await axios.get("/init");
+      setIsAdmin(response.data.isInit)
+    } catch (error) {
+      console.error("Error fetching init.")
+    }
+  };
+  
+  useEffect(() => {
+    fetchInit()
+  });
+
   return (
     <>
       <Navigation />
-      <Container className="px-4 py-5 my-5 text-center">
+      <Container className="px-4 py-5 my-3 text-center">
         <Image
           className="d-block mx-auto mb-4"
           src="https://cdn-icons-png.flaticon.com/512/2684/2684178.png"
@@ -25,6 +43,11 @@ const Home = () => {
             </p>
           </Col>
         </Row>
+        {!isAdmin && (
+          <Link to="/konfiguracja">
+            <button className="custom-btn inter">Utwórz konto administratora</button>
+          </Link>
+        )}
       </Container>
       <Footer />
     </>

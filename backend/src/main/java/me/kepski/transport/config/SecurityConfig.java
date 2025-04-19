@@ -56,6 +56,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/mobile-refresh").permitAll()
                         .requestMatchers("/api/refresh").permitAll()
                         .requestMatchers("/api/logout").permitAll()
+                        .requestMatchers("/api/init").permitAll()
+                        .requestMatchers("/api/employees").permitAll()
                         .requestMatchers(antMatcher(HttpMethod.POST, "/api/start-order")).hasAuthority("ROLE_DRIVER")
                         .requestMatchers(antMatcher(HttpMethod.POST, "/api/end-order")).hasAuthority("ROLE_DRIVER")
                         .requestMatchers("/api/drivers/account/verify").permitAll()

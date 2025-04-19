@@ -31,6 +31,7 @@ import SetPassword from "./pages/SetPassword";
 import RoutesHistory from "./pages/RoutesHistory";
 import ResetPassword from "./pages/ResetPassword";
 import SetNewPassword from "./pages/SetNewPassword";
+import AdminAccountConfig from "./pages/AdminAccountConfig";
 
 const ROLES = {
   Driver: "[ROLE_DRIVER]",
@@ -47,6 +48,7 @@ const App = () => {
         <Route path="brak-dostepu" element={<Unauthorized />} />
         <Route path="haslo-resetowanie" element={<ResetPassword />} />
         <Route path="haslo-ustaw" element={<SetNewPassword />} />
+        <Route path="konfiguracja" element={<AdminAccountConfig />} />
 
         {/* protected */}
         <Route element={<PersistLogin />}>

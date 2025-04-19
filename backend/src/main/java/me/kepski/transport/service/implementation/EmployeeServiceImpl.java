@@ -4,6 +4,7 @@ import me.kepski.transport.entity.Employee;
 import me.kepski.transport.repository.EmployeeRepository;
 import me.kepski.transport.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +26,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee createEmployee(Employee employee) {
-        return employeeRepository.save(employee);
+    public Long createEmployee(Employee employee) {
+        Employee existingEmployee = employeeRepository.findByEmail(employee.getEmail());
+        if (existingEmployee != null) {
+            throw new IllegalArgumentException("Podany adres email już istnieje.");
+        }
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodedPassword = encoder.encode(employee.getPassword());
+        employee.setPassword(encodedPassword);
+        employee.setRole("ROLE_ADMIN");
+        Employee savedEmployee = employeeRepository.save(employee);
+        return savedEmployee.getId();
     }
 
     @Override
@@ -43,5 +54,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee findByEmail(String email) {
         return employeeRepository.findByEmail(email);
+    }
+
+    @Override
+    public boolean isEmployee() {
+        return employeeRepository.existsBy();
     }
 }

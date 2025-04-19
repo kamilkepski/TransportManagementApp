@@ -10,4 +10,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Query(value = "SELECT * FROM employee WHERE email=?", nativeQuery = true)
     Employee findByEmail(String email);
+
+    boolean existsBy();
 }

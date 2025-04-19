@@ -1,6 +1,5 @@
 package me.kepski.transport.controller;
 
-import me.kepski.transport.config.PropertyReader;
 import me.kepski.transport.dto.ActiveDriverDto;
 import me.kepski.transport.dto.PageResponse;
 import me.kepski.transport.dto.PasswordRequest;
@@ -8,16 +7,12 @@ import me.kepski.transport.entity.ConfirmationToken;
 import me.kepski.transport.entity.Driver;
 import me.kepski.transport.service.ConfirmationTokenService;
 import me.kepski.transport.service.DriverService;
-import me.kepski.transport.service.EmailService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 

@@ -4,6 +4,7 @@ import me.kepski.transport.jwt.AuthRequest;
 import me.kepski.transport.jwt.AuthResponse;
 import me.kepski.transport.jwt.JwtUtil;
 import me.kepski.transport.service.CustomUserDetailsService;
+import me.kepski.transport.service.EmployeeService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
@@ -19,15 +20,23 @@ import java.util.Map;
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
-
     private final JwtUtil jwtUtil;
-
     private final CustomUserDetailsService customUserDetailsService;
+    private final EmployeeService employeeService;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil, CustomUserDetailsService customUserDetailsService) {
+    public AuthController(AuthenticationManager authenticationManager,
+                          JwtUtil jwtUtil,
+                          CustomUserDetailsService customUserDetailsService,
+                          EmployeeService employeeService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.customUserDetailsService = customUserDetailsService;
+        this.employeeService = employeeService;
+    }
+
+    @GetMapping("/api/init")
+    public ResponseEntity<?> checkInit() {
+        return ResponseEntity.ok(Map.of("isInit", employeeService.isEmployee()));
     }
 
     @PostMapping("/api/mobile-login")

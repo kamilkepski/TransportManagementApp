@@ -23,7 +23,7 @@ const useRefreshToken = () => {
         throw new Error("Missing access token or role in the response");
       }
     } catch (error) {
-      console.error("Error during refresh:", error);
+      console.error("Error during refresh:", error.response.data.error);
       return null;
     }
   };

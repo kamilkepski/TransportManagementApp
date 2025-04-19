@@ -35,7 +35,7 @@ const ResetPassword = () => {
 
       if (!response.ok) {
         throw new Error(
-          "Nie udało się wysłać emaila. Sprawdź adres i spróbuj ponownie."
+          "Wystąpił błąd. Sprawdź czy wprowadzone dane są poprawne."
         );
       }
       setMessage(
